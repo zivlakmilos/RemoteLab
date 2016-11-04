@@ -14,3 +14,10 @@
 # Binary files
 *.pyc
 
+#######
+# VIM #
+#######
+
+# Backup files (temporarly)
+*.swp
+
