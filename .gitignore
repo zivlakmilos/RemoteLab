@@ -11,3 +11,6 @@
 # SOFTWARE #
 ############
 
+# Binary files
+*.pyc
+

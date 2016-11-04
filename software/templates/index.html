@@ -1,10 +1,64 @@
 <html>
     <head>
-        <title>Test</title>
+        <title>Remote Lab ~ ZI</title>
+
+        <script type="text/javascript" src="//code.jquery.com/jquery-1.4.2.min.js"></script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+        
+        <script type="text/javascript">
+            var socket;
+
+            $(document).ready(function() {
+                socket = io.connect("http://" + document.domain + ":" + location.port);
+
+                socket.on("updateState", function(data) {
+                    $("#btnLed1").html(data.led1);
+                    $("#btnLed2").text(data.led2);
+                    console.log(data.led3);
+                });
+
+                $("#btnLed1").click(function() {
+                    socket.emit("setLedState", "led1", $(this).text());
+                });
+
+                $("#btnLed2").click(function() {
+                    socket.emit("setLedState", "led2", $(this).text());
+                });
+            });
+        </script>
     </head>
 
     <body>
-        <h1>Test</h1>
+        <table>
+            <tr>
+                <td>
+                    Led 1:
+                </td>
+                <td>
+                    <button id="btnLed1">On</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Led 2:
+                </td>
+                <td>
+                    <button id="btnLed2">On</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Led 3:
+                </td>
+                <td>
+                </td>
+            </tr>
+        </table>
+
+        <div style="position: fixed; bottom: 0; width: 100%;">
+            <hr>
+            <div align="center">&copy Zivlak Milos 2016</div>
+        </div>
     </body>
 </html>
 
