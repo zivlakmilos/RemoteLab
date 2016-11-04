@@ -16,6 +16,7 @@
                 socket.on("updateState", function(data) {
                     $("#btnLed1").html(data.led1);
                     $("#btnLed2").text(data.led2);
+                    console.log(data.led3);
                     $("#sliderLed3").slider("value", data.led3);
                 });
 
@@ -34,10 +35,6 @@
                                           orientation: "horizontal" });
                 $("#sliderLed3").on("slide", function(event, ui) {
                     socket.emit("setLedPwm", ui.value);
-                });
-
-                $("#sliderLed3").on("slidestop", function(event, ui) {
-                    socket.emit("updateState");
                 });
             });
         </script>

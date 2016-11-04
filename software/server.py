@@ -18,7 +18,7 @@ def index():
 
 @socket.on("connect")
 def clientConnected():
-    updateState();
+    sendState();
 
 @socket.on("setLedState")
 def setLedState(led, state):
@@ -26,17 +26,20 @@ def setLedState(led, state):
         port.ledOn(led);
     else:
         port.ledOff(led);
-    updateState();
+    sendState();
 
 @socket.on("setLedPwm")
 def setLedPwm(pwm):
     port.ledPwm(pwm);
-    updateState();
 
+@socket.on("updateState")
 def updateState():
+    sendState();
+
+def sendState():
     led1 = "On";
     led2 = "On";
-    led3 = "\x00";
+    led3 = ord(port.ledState("led3"));
 
     if port.ledState("led1"):
         led1 = "Off";
